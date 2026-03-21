@@ -1,0 +1,26 @@
+@model FoodSafetyTracker.Models.Premises
+@{
+    ViewData["Title"] = "Delete Premises";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-danger"><i class="bi bi-trash me-2"></i>Delete Premises</h2>
+    <a href="/Premises" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+
+<div class="card shadow-sm border-danger" style="max-width:500px">
+    <div class="card-body">
+        <p class="mb-3">Are you sure you want to delete this premises? All associated inspections and follow-ups will also be removed.</p>
+        <dl class="row">
+            <dt class="col-sm-4">Name</dt><dd class="col-sm-8">@Model.Name</dd>
+            <dt class="col-sm-4">Town</dt><dd class="col-sm-8">@Model.Town</dd>
+            <dt class="col-sm-4">Risk Rating</dt><dd class="col-sm-8">@Model.RiskRating</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input asp-for="Id" type="hidden" />
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash me-1"></i>Yes, Delete</button>
+            <a href="/Premises" class="btn btn-outline-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

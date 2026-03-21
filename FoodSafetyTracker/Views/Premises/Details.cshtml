@@ -1,0 +1,59 @@
+@model FoodSafetyTracker.Models.Premises
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2><i class="bi bi-building me-2"></i>@Model.Name</h2>
+    <a href="/Premises" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Address</dt><dd class="col-sm-9">@Model.Address</dd>
+            <dt class="col-sm-3">Town</dt><dd class="col-sm-9">@Model.Town</dd>
+            <dt class="col-sm-3">Risk Rating</dt>
+            <dd class="col-sm-9">
+                <span class="badge @(Model.RiskRating == RiskRating.High ? "bg-danger" : Model.RiskRating == RiskRating.Medium ? "bg-warning text-dark" : "bg-success")">
+                    @Model.RiskRating
+                </span>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h4>Inspections</h4>
+    @if (User.IsInRole("Admin") || User.IsInRole("Inspector"))
+    {
+        <a href="/Inspection/Create?premisesId=@Model.Id" class="btn btn-sm btn-primary"><i class="bi bi-plus-lg me-1"></i>New Inspection</a>
+    }
+</div>
+
+@if (!Model.Inspections.Any())
+{
+    <p class="text-muted">No inspections recorded yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>Date</th><th>Score</th><th>Outcome</th><th>Follow-Ups</th><th></th></tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.Inspections.OrderByDescending(x => x.InspectionDate))
+                {
+                    <tr>
+                        <td>@i.InspectionDate.ToString("dd MMM yyyy")</td>
+                        <td>@i.Score</td>
+                        <td><span class="badge @(i.Outcome == InspectionOutcome.Pass ? "bg-success" : "bg-danger")">@i.Outcome</span></td>
+                        <td>@i.FollowUps.Count</td>
+                        <td><a href="/Inspection/Details/@i.Id" class="btn btn-sm btn-outline-secondary">View</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

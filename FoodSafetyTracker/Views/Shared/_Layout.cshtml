@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] – Food Safety Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        body { background: #f8f9fa; }
+        .navbar-brand { font-weight: 700; letter-spacing: 0.5px; }
+        .sidebar { min-height: calc(100vh - 56px); background: #212529; }
+        .sidebar .nav-link { color: #adb5bd; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; background: #343a40; border-radius: 4px; }
+        .sidebar .nav-link i { margin-right: 8px; }
+        .card-stat { border: none; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><i class="bi bi-shield-check me-2"></i>Food Safety Tracker</a>
+        <div class="ms-auto">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <span class="text-light me-3"><i class="bi bi-person-circle me-1"></i>@User.Identity.Name</span>
+                <a class="btn btn-outline-light btn-sm" href="/Identity/Account/Logout"
+                   onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                <form id="logoutForm" method="post" action="/Identity/Account/Logout">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="ReturnUrl" value="/" />
+                </form>
+            }
+            else
+            {
+                <a class="btn btn-outline-light btn-sm" href="/Identity/Account/Login">Login</a>
+            }
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 sidebar py-3 d-none d-md-block">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")"
+                       href="/Dashboard"><i class="bi bi-speedometer2"></i>Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Premises" ? "active" : "")"
+                       href="/Premises"><i class="bi bi-building"></i>Premises</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Inspection" ? "active" : "")"
+                       href="/Inspection"><i class="bi bi-clipboard-check"></i>Inspections</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    <i class="bi bi-check-circle me-2"></i>@TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <i class="bi bi-exclamation-triangle me-2"></i>@TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

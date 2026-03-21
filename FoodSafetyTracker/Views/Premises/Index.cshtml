@@ -1,0 +1,46 @@
+@* Index.cshtml *@
+@model IEnumerable<FoodSafetyTracker.Models.Premises>
+@{
+    ViewData["Title"] = "Premises";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-building me-2"></i>Premises</h2>
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/Premises/Create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Add Premises</a>
+    }
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr><th>Name</th><th>Address</th><th>Town</th><th>Risk Rating</th><th></th></tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.Name</td>
+                        <td>@p.Address</td>
+                        <td>@p.Town</td>
+                        <td>
+                            <span class="badge @(p.RiskRating == RiskRating.High ? "bg-danger" : p.RiskRating == RiskRating.Medium ? "bg-warning text-dark" : "bg-success")">
+                                @p.RiskRating
+                            </span>
+                        </td>
+                        <td>
+                            <a href="/Premises/Details/@p.Id" class="btn btn-sm btn-outline-secondary">Details</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href="/Premises/Edit/@p.Id" class="btn btn-sm btn-outline-primary ms-1">Edit</a>
+                                <a href="/Premises/Delete/@p.Id" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+@model FoodSafetyTracker.Models.CreateInspectionViewModel
+@{
+    ViewData["Title"] = "New Inspection";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-clipboard-plus me-2"></i>New Inspection</h2>
+    <a href="/Inspection" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+
+<div class="card shadow-sm" style="max-width:600px">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="PremisesId" class="form-label fw-semibold">Premises</label>
+                <select asp-for="PremisesId" class="form-select" asp-items="ViewBag.PremisesList">
+                    <option value="">— Select Premises —</option>
+                </select>
+                <span asp-validation-for="PremisesId" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="InspectionDate" class="form-label fw-semibold"></label>
+                <input asp-for="InspectionDate" type="date" class="form-control" />
+                <span asp-validation-for="InspectionDate" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Score" class="form-label fw-semibold">Score (0–100)</label>
+                <input asp-for="Score" type="number" min="0" max="100" class="form-control" />
+                <span asp-validation-for="Score" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Outcome" class="form-label fw-semibold"></label>
+                <select asp-for="Outcome" class="form-select"
+                        asp-items="Html.GetEnumSelectList<FoodSafetyTracker.Models.InspectionOutcome>()"></select>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Notes" class="form-label fw-semibold">Notes (optional)</label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Record Inspection</button>
+            <a href="/Inspection" class="btn btn-outline-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

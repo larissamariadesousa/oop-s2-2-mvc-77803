@@ -1,0 +1,42 @@
+@model FoodSafetyTracker.Models.Premises
+@{
+    ViewData["Title"] = "Edit Premises";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-pencil-square me-2"></i>Edit Premises</h2>
+    <a href="/Premises" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+</div>
+
+<div class="card shadow-sm" style="max-width:600px">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-semibold"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label fw-semibold"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Town" class="form-label fw-semibold"></label>
+                <input asp-for="Town" class="form-control" />
+                <span asp-validation-for="Town" class="text-danger small"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="RiskRating" class="form-label fw-semibold"></label>
+                <select asp-for="RiskRating" class="form-select"
+                        asp-items="Html.GetEnumSelectList<FoodSafetyTracker.Models.RiskRating>()"></select>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Update</button>
+            <a href="/Premises" class="btn btn-outline-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

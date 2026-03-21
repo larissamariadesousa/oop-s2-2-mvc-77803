@@ -1,0 +1,139 @@
+@model FoodSafetyTracker.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
+    <small class="text-muted">@DateTime.Now.ToString("MMMM yyyy")</small>
+</div>
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Filter by Town</label>
+                <select name="filterTown" class="form-select">
+                    <option value="">All Towns</option>
+                    @foreach (var town in Model.AvailableTowns)
+                    {
+                        if (Model.FilterTown == town)
+                        {
+                            <option value="@town" selected>@town</option>
+                        }
+                        else
+                        {
+                            <option value="@town">@town</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Filter by Risk Rating</label>
+                <select name="filterRiskRating" class="form-select">
+                    <option value="">All Risk Levels</option>
+                    @foreach (var r in Enum.GetValues<FoodSafetyTracker.Models.RiskRating>())
+                    {
+                        if (Model.FilterRiskRating == r)
+                        {
+                            <option value="@r" selected>@r</option>
+                        }
+                        else
+                        {
+                            <option value="@r">@r</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i>Filter</button>
+            </div>
+            <div class="col-md-2">
+                <a href="/Dashboard" class="btn btn-outline-secondary w-100">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Stat Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card card-stat shadow-sm h-100 border-start border-primary border-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1 small">Inspections This Month</p>
+                        <h2 class="fw-bold mb-0">@Model.InspectionsThisMonth</h2>
+                    </div>
+                    <div class="text-primary opacity-50"><i class="bi bi-clipboard-check" style="font-size:2.5rem"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-stat shadow-sm h-100 border-start border-danger border-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1 small">Failed Inspections This Month</p>
+                        <h2 class="fw-bold mb-0 text-danger">@Model.FailedInspectionsThisMonth</h2>
+                    </div>
+                    <div class="text-danger opacity-50"><i class="bi bi-x-circle" style="font-size:2.5rem"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-stat shadow-sm h-100 border-start border-warning border-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1 small">Overdue Follow-Ups</p>
+                        <h2 class="fw-bold mb-0 @(Model.OverdueFollowUps > 0 ? "text-warning" : "")">@Model.OverdueFollowUps</h2>
+                    </div>
+                    <div class="text-warning opacity-50"><i class="bi bi-exclamation-triangle" style="font-size:2.5rem"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card shadow-sm">
+    <div class="card-header bg-white fw-semibold">Recent Inspections</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Premises</th><th>Town</th><th>Risk</th><th>Date</th><th>Score</th><th>Outcome</th><th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model.RecentInspections)
+                    {
+                        <tr>
+                            <td>@i.PremisesName</td>
+                            <td>@i.Town</td>
+                            <td>
+                                <span class="badge @(i.RiskRating == RiskRating.High ? "bg-danger" : i.RiskRating == RiskRating.Medium ? "bg-warning text-dark" : "bg-success")">
+                                    @i.RiskRating
+                                </span>
+                            </td>
+                            <td>@i.InspectionDate.ToString("dd MMM yyyy")</td>
+                            <td>@i.Score</td>
+                            <td>
+                                <span class="badge @(i.Outcome == InspectionOutcome.Pass ? "bg-success" : "bg-danger")">
+                                    @i.Outcome
+                                </span>
+                            </td>
+                            <td><a href="/Inspection/Details/@i.InspectionId" class="btn btn-sm btn-outline-secondary">View</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

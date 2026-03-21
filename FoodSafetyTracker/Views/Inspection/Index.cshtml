@@ -1,0 +1,44 @@
+@model IEnumerable<FoodSafetyTracker.Models.Inspection>
+@{
+    ViewData["Title"] = "Inspections";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-clipboard-check me-2"></i>Inspections</h2>
+    @if (User.IsInRole("Admin") || User.IsInRole("Inspector"))
+    {
+        <a href="/Inspection/Create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>New Inspection</a>
+    }
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr><th>Premises</th><th>Town</th><th>Date</th><th>Score</th><th>Outcome</th><th>Follow-Ups</th><th></th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model)
+                    {
+                        <tr>
+                            <td>@i.Premises.Name</td>
+                            <td>@i.Premises.Town</td>
+                            <td>@i.InspectionDate.ToString("dd MMM yyyy")</td>
+                            <td>@i.Score</td>
+                            <td><span class="badge @(i.Outcome == InspectionOutcome.Pass ? "bg-success" : "bg-danger")">@i.Outcome</span></td>
+                            <td>@i.FollowUps.Count</td>
+                            <td>
+                                <a href="/Inspection/Details/@i.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a href="/Inspection/Delete/@i.Id" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
