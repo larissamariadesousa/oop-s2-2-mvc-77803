@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj": {}
+    "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj": {}
   },
   "projects": {
-    "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj": {
+    "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj",
+        "projectUniqueName": "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj",
         "projectName": "FoodSafetyTracker.Tests",
-        "projectPath": "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj",
+        "projectPath": "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/FoodSafetyTracker.Tests.csproj",
         "packagesPath": "/Users/larimari_/.nuget/packages/",
-        "outputPath": "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/obj/",
+        "outputPath": "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/larimari_/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj": {
-                "projectPath": "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj"
+              "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj": {
+                "projectPath": "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj"
               }
             }
           }
@@ -97,14 +97,14 @@
         }
       }
     },
-    "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj": {
+    "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj",
+        "projectUniqueName": "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj",
         "projectName": "FoodSafetyTracker",
-        "projectPath": "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj",
+        "projectPath": "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker/FoodSafetyTracker.csproj",
         "packagesPath": "/Users/larimari_/.nuget/packages/",
-        "outputPath": "/Users/larimari_/Desktop/John/oop-s2-2-mvc-77803/FoodSafetyTracker/obj/",
+        "outputPath": "/Users/larimari_/Desktop/oop-s2-2-mvc-77803/FoodSafetyTracker/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/larimari_/.nuget/NuGet/NuGet.Config"
@@ -175,7 +175,11 @@
             },
             "Serilog.Sinks.File": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[6.0.0, )"
+            },
+            "Serilog.Sinks.Seq": {
+              "target": "Package",
+              "version": "[5.2.2, )"
             }
           },
           "imports": [

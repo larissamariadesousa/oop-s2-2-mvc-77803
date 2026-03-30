@@ -33,7 +33,8 @@ try
                 rollingInterval: RollingInterval.Day,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] " +
                                 "App={Application} Env={Environment} User={UserName} | " +
-                                "{Message:lj}{NewLine}{Exception}");
+                                "{Message:lj}{NewLine}{Exception}")
+            .WriteTo.Seq("http://localhost:5341");
     });
 
     // ── EF Core + SQLite ────────────────────────────────────────────────────
